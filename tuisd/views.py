@@ -19,3 +19,6 @@ def showCaptchaCode(request):
 	}
 	image = '18892.png'
 	return render(request, 'tuisd/generatedCode.html', context, image)
+
+def demoCaptcha(request):
+	return render(request, 'tuisd/captcha/demo.html')

@@ -1,13 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from uidesigner.audio_captcha import CaptchaAuditivo
 from captcha.image import ImageCaptcha
+from .audio_captcha import CaptchaAuditivo
 from .models import KeyPair, GeneratedCaptcha
 from .utils import random_string
 import random
-import tempfile
-
 
 def serve_captcha_image(request, captcha_id):
     try:
@@ -24,12 +22,8 @@ def serve_captcha_audio(request, captcha_id):
         captcha = GeneratedCaptcha.objects.get(captcha_id=captcha_id)
     except GeneratedCaptcha.DoesNotExist:
         raise Http404("Captcha no existe")
-    with tempfile.TemporaryFile() as temp:
-        temp.write(CaptchaAuditivo().generate(captcha.answer))
-        temp.seek(0)
-        response = HttpResponse(temp.read(), content_type='audio/wav')
-    return response
-
+    audio = CaptchaAuditivo().generate(captcha.answer)
+    return HttpResponse(bytes(audio), content_type='audio/wav')
 
 def serveCaptcha(request):
     name = random.randint(0,99999)

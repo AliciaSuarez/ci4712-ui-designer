@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block content %}
-    
+
     <audio id='audioCaptcha' src="{% static 'tuisd/audio/coin.wav' %}" preload= 'auto' type="audio/mpeg"></audio>
 
     <br>
@@ -50,7 +50,7 @@
                                 </div>
 
                                 <div class="btn-separator"></div>
-                                
+
                                 <div class="btn-group-vertical btn-group-sm mr-2" role="group" aria-label="Second group" style="width: 2em">
                                   <button type="button" class="btn btn-sm btn-dark" data-toggle="tooltip" data-placement="right" title="Ayuda">
                                       <i class="fa fa-fw fa-question-circle" aria-hidden="true"></i>
@@ -59,9 +59,10 @@
                               </div>
                             </div>
                           </div>
-                 
+
                            <br>
-                           <br>    
+                           <br>
+                           <br>
                           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="captcha">
                         </div>
 
@@ -73,35 +74,27 @@
 
             <div class="col">
                 <br>
-                <a href="{% url 'showCaptchaCode' %}" class="btn btn-secondary" role="button">Ver código generado</a> 
+                <a href="{% url 'showCaptchaCode' %}" class="btn btn-secondary" role="button">Ver código generado</a>
             </div>
           </div>
         </div>
 
     </div>
 
-
-
     <script>
-
     $("document").ready(function(){
-
       $("#actualizarCaptcha").trigger("click");
     });
 
-
-
     $( "#reproducirAudio" ).click(function(){
-
       var captchaAudio = document.getElementById('audioCaptcha');
       captchaAudio.play();
     });
 
 
     $( "#actualizarCaptcha" ).click(function() {
-
       $.ajax({
-        url: '/servecaptcha/generate_captcha/9qLMKRTlXyizWUtjoDvNtGz5z6G4DuaZfHIrBPyJ1PyWS60pEz0qQHE6q2v0bWVc/',
+        url: '/servecaptcha/generate_captcha/demoPublicKey/',
         type: 'get',
         dataType: 'json',
         success: function(data) {
@@ -110,20 +103,12 @@
         failure: function(data) {
           alert("nada");
         }
-
       });
     });
     </script>
-
-
-
-
-
 
 {% endblock %}
 
 {% block ayuda %}
   Ayuda de mostrar captcha
 {% endblock %}
-
-

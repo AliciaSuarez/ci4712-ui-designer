@@ -2,13 +2,55 @@
 
 {% block content %}
 	<div  class="text-center">
+
+		<h2>Integración del lado del cliente</h2>
+
+
+		<p>Clave pública:</p>
+		<p id="public_key"></p>
+
+
+		<h2>Integración del lado del servidor</h2>
+
+
+
+		<p>Clave privada:</p>
+		<p id="private_key"></p>
+
+
+
 		<p>Su código generado es:</p>
 	</div>
+
+	<script>
+	$(document).ready(function() {
+
+		$.ajax({
+			url: '/servecaptcha/generate_apikey',
+			type: 'get',
+			dataType: 'json',
+			success: function(data) {
+				$("#public_key").text(data.public_key);
+				$("#private_key").text(data.private_key);
+			},
+			failure: function(data) {
+				alert("nada");
+			}
+
+		});
+	});
+	</script>
+
+
+
+
 {% endblock %}
 
 {% block ayuda %}
   Ayuda de código generado
 {% endblock %}
+
+
 
 
 

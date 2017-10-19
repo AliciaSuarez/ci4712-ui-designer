@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include,url
 from django.contrib import admin
+from servecaptcha import urls
 
 urlpatterns = [
+    url(r'^servecaptcha/', include('servecaptcha.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('tuisd.urls')),
 ]

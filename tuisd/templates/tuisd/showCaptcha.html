@@ -31,13 +31,13 @@
                           <div class="container">
                             <div class="row">
                               <div class="col">
-                                <img class="card-img-top" src="{% static 'tuisd/img/18892.png' %}"/>
+                                <img id="image_captcha" class="card-img-top" src=""/>
                               </div>
 
                               <div class="col col-lg-2">
                                 <div class="btn-group-vertical btn-group-sm mr-2" role="group" style="margin-bottom: 0.2em">
                                   <button type="button" class="btn btn-secondary btn-dark" data-toggle="tooltip" data-placement="right" title="Refrescar Captcha">
-                                      <i class="fa fa-refresh" aria-hidden="true"></i>
+                                      <i id="actualizarCaptcha" class="fa fa-refresh" aria-hidden="true"></i>
                                   </button>
                                 </div>
 
@@ -76,6 +76,39 @@
         <br>
         <a href="{% url 'showCaptchaCode' %}" class="btn btn-primary" role="button">Ver código generado</a> 
     </div>
+
+
+
+    <script>
+
+    $("document").ready(function(){
+
+      $("#actualizarCaptcha").trigger("click");
+    });
+
+
+
+    $( "#actualizarCaptcha" ).click(function() {
+
+      $.ajax({
+        url: '/servecaptcha/generate_captcha/9qLMKRTlXyizWUtjoDvNtGz5z6G4DuaZfHIrBPyJ1PyWS60pEz0qQHE6q2v0bWVc/',
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+          $("#image_captcha").attr("src", "/servecaptcha/image/" + data.captcha_id);
+        },
+        failure: function(data) {
+          alert("nada");
+        }
+
+      });
+    });
+    </script>
+
+
+
+
+
 
 {% endblock %}
 

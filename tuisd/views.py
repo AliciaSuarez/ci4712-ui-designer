@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import json
 
 # Create your views here.
 def index(request):
@@ -12,6 +13,9 @@ def showCaptcha(request):
 
 
 def showCaptchaCode(request):
-	context = {}
+
+	context = {
+
+	}
 	image = '18892.png'
 	return render(request, 'tuisd/generatedCode.html', context, image)
